@@ -30,6 +30,7 @@ public class HealthKiosk {
         int healthMetric = userInput.nextInt();
         int metricChosen = 0;
         String bmiString = "";
+        double bmi = 0;
         int numberTabletsInt;
 
         switch (healthMetric) {
@@ -40,7 +41,7 @@ public class HealthKiosk {
                 System.out.println("Enter your height in meters:");
                 double userHeight = userInput.nextDouble();
 
-                double bmi = Math.round(userWeight / Math.pow(userHeight, 2) * 10 / 10.0);
+                bmi = Math.round(userWeight / Math.pow(userHeight, 2) * 10 / 10.0);
                 bmiString = Double.toString(bmi);
 
                 System.out.println("Bmi: " + bmiString);
@@ -119,17 +120,20 @@ public class HealthKiosk {
         String userName = userInput.next();
         char firstChar = userName.charAt(0);
 
-        String baseCode = ((char) ('A' + (firstChar - 'A' % 26))) + userID.charAt(3) + userID.charAt(4) + "-" + bmiString;
-        System.out.println("Display Code: " + baseCode);
+        int bmiToInt = (int) bmi;
+        String bmiToString = String.valueOf(bmiToInt);
+        char baseCode = (char) ('A' + (firstChar - 'A' + 2) % 26);
+        String finalCodeFormat = "Display Code: " + baseCode + userID.charAt(3) + userID.charAt(4) + "-" + bmiToString;
+        System.out.println(finalCodeFormat);
 
 
         // Service Summary
         switch (serviceCode) {
 
-            case 'p' -> System.out.println("Summary: PHARMACY | ID =" + userID + " | Code=" + baseCode);
-            case 'l' -> System.out.println("Summary: LAB | ID =" + userID + " | Code=" + baseCode);
-            case 't' -> System.out.println("Summary: TRIAGE | ID =" + userID + " | Code=" + baseCode);
-            case 'c' -> System.out.println("Summary: COUNSELLING | ID =" + userID + " | Code=" + baseCode);
+            case 'p' -> System.out.println("Summary: PHARMACY | ID =" + userID + " | Code=" + finalCodeFormat);
+            case 'l' -> System.out.println("Summary: LAB | ID =" + userID + " | Code=" + finalCodeFormat);
+            case 't' -> System.out.println("Summary: TRIAGE | ID =" + userID + " | Code=" + finalCodeFormat);
+            case 'c' -> System.out.println("Summary: COUNSELLING | ID =" + userID + " | Code=" + finalCodeFormat);
             default -> System.out.println("Invalid service code");
 
         }
