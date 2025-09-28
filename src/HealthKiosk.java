@@ -45,6 +45,8 @@ public class HealthKiosk {
                 bmiString = Double.toString(bmi);
 
                 System.out.println("Bmi: " + bmiString);
+                metricChosen = 1;
+
 
                 if (bmi < 18.5)
                     System.out.println("BMI status: Underweight");
@@ -66,6 +68,8 @@ public class HealthKiosk {
 
                 System.out.println("Number of tablets: " + numberTabletsInt);
 
+                metricChosen = 2;
+
 
             }
 
@@ -78,6 +82,8 @@ public class HealthKiosk {
 
                 System.out.println("Sin(" + degrees + ") = " + sinDegrees);
                 System.out.println("Cos(" + degrees + ") = " + cosDegrees);
+
+                metricChosen = 3;
 
             }
         }
@@ -123,8 +129,8 @@ public class HealthKiosk {
         int bmiToInt = (int) bmi;
         String bmiToString = String.valueOf(bmiToInt);
         char baseCode = (char) ('A' + (firstChar - 'A' + 2) % 26);
-        String finalCodeFormat = "Display Code: " + baseCode + userID.charAt(3) + userID.charAt(4) + "-" + bmiToString;
-        System.out.println(finalCodeFormat);
+        String finalCodeFormat =  "" + baseCode + userID.charAt(3) + userID.charAt(4) + "-" + bmiToString;
+        System.out.println("Display Code: " + finalCodeFormat);
 
 
         // Service Summary
