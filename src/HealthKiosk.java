@@ -31,7 +31,8 @@ public class HealthKiosk {
         int metricChosen = 0;
         String bmiString = "";
         double bmi = 0;
-        int numberTabletsInt;
+        int numberTabletsInt = 0;
+        double sinDegrees = 0;
 
         switch (healthMetric) {
             case 1 -> {
@@ -77,7 +78,7 @@ public class HealthKiosk {
                 System.out.println("Enter an angle in degrees: ");
                 double degrees = userInput.nextDouble();
 
-                double sinDegrees = (Math.round(Math.sin(degrees) * 1000) / 1000.0);
+                sinDegrees = (Math.round(Math.sin(degrees) * 1000) / 1000.0);
                 double cosDegrees = (Math.round(Math.cos(degrees) * 1000) / 1000.0);
 
                 System.out.println("Sin(" + degrees + ") = " + sinDegrees);
@@ -108,14 +109,12 @@ public class HealthKiosk {
 
         String randID = randChar + String.valueOf(randInt1) + String.valueOf(randInt2) + String.valueOf(randInt3) + String.valueOf(randInt4);
 
-        System.out.println("Enter Student ID(" + (randID) + "): ");
-        String userID = userInput.next();
 
-        if (userID.length() > 5)
+        if (randID.length() > 5)
             System.out.println("Invalid length");
-        else if (!Character.isAlphabetic(userID.charAt(0)))
+        else if (!Character.isAlphabetic(randID.charAt(0)))
             System.out.println("Invalid First Character");
-        else if (!Character.isDigit(userID.charAt(1)) || !Character.isDigit(userID.charAt(2)) || !Character.isDigit(userID.charAt(3)) || !Character.isDigit(userID.charAt(4)))
+        else if (!Character.isDigit(randID.charAt(1)) || !Character.isDigit(randID.charAt(2)) || !Character.isDigit(randID.charAt(3)) || !Character.isDigit(randID.charAt(4)))
             System.out.println("Last 4 characters must be digits");
         else
             System.out.println("ID verified");
@@ -129,17 +128,29 @@ public class HealthKiosk {
         int bmiToInt = (int) bmi;
         String bmiToString = String.valueOf(bmiToInt);
         char baseCode = (char) ('A' + (firstChar - 'A' + 2) % 26);
-        String finalCodeFormat =  "" + baseCode + userID.charAt(3) + userID.charAt(4) + "-" + bmiToString;
+        String finalCodeFormat =   baseCode + randID.substring(randID.length() -2 ) + "-";
+
+        String numberTablesString = String.valueOf(numberTabletsInt);
+        String sinDegreesString = String.valueOf(sinDegrees);
+
+        switch (metricChosen) {
+
+            case 1 -> finalCodeFormat += bmiToString;
+            case 2 -> finalCodeFormat += numberTablesString;
+            case 3 -> finalCodeFormat += sinDegreesString;
+
+        }
+
         System.out.println("Display Code: " + finalCodeFormat);
 
 
         // Service Summary
         switch (serviceCode) {
 
-            case 'p' -> System.out.println("Summary: PHARMACY | ID =" + userID + " | Code=" + finalCodeFormat);
-            case 'l' -> System.out.println("Summary: LAB | ID =" + userID + " | Code=" + finalCodeFormat);
-            case 't' -> System.out.println("Summary: TRIAGE | ID =" + userID + " | Code=" + finalCodeFormat);
-            case 'c' -> System.out.println("Summary: COUNSELLING | ID =" + userID + " | Code=" + finalCodeFormat);
+            case 'p' -> System.out.println("Summary: PHARMACY | ID =" + randID+ " | Code=" + finalCodeFormat);
+            case 'l' -> System.out.println("Summary: LAB | ID =" + randID + " | Code=" + finalCodeFormat);
+            case 't' -> System.out.println("Summary: TRIAGE | ID =" + randID + " | Code=" + finalCodeFormat);
+            case 'c' -> System.out.println("Summary: COUNSELLING | ID =" + randID + " | Code=" + finalCodeFormat);
             default -> System.out.println("Invalid service code");
 
         }
