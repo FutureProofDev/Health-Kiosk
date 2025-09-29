@@ -131,7 +131,7 @@ public class HealthKiosk {
         String finalCodeFormat =   baseCode + randID.substring(randID.length() -2 ) + "-";
 
         String numberTablesString = String.valueOf(numberTabletsInt);
-        String sinDegreesString = String.valueOf(sinDegrees);
+        String sinDegreesString = String.valueOf(Math.round(sinDegrees));
 
         switch (metricChosen) {
 
